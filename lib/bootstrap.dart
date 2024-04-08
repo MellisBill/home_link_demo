@@ -3,6 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:home_link_interview/repos/alerts_repository.dart';
+
+import 'app/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -31,5 +34,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   // Add cross-flavor configuration here
 
-  runApp(await builder());
+  final alertsRepository = AlertsRepository();
+
+    runZonedGuarded(
+    () => runApp(App(alertsRepository: alertsRepository)),
+    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+  );
 }

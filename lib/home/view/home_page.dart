@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_link_interview/alert_summary/view/alerts_summary_page.dart';
 import 'package:home_link_interview/home/home.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,20 +35,11 @@ class HomeView extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12),
           child: SafeArea(
-            child: Stack(
-              children: <Widget>[
-                const Image(
-                  width: 32,
-                  height: 32,
-                  image: AssetImage('assets/plus_button.png'),
-                ),
-                IndexedStack(
-                  index: selectedTab.index,
-                  // children: const [TodosOverviewPage(), StatsPage()],
-                ),
-              ],
+            child: IndexedStack(
+              index: selectedTab.index,
+              children: const [AlertsSummaryPage()],
             ),
           ),
         ),
@@ -61,14 +53,14 @@ class HomeView extends StatelessWidget {
           children: [
             _HomeTabButton(
               groupValue: selectedTab,
-              value: HomeTab.todos,
+              value: HomeTab.alert,
               icon: const Image(
                 image: AssetImage('assets/live_icon.png'),
               ),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
-              value: HomeTab.stats,
+              value: HomeTab.alert_summary,
               icon: const Image(
                 image: AssetImage('assets/summary_icon.png'),
               ),
