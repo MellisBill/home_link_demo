@@ -22,18 +22,39 @@ class HomeView extends StatelessWidget {
     final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
 
     return Scaffold(
-      body: IndexedStack(
-        index: selectedTab.index,
-        // children: const [TodosOverviewPage(), StatsPage()],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        key: const Key('homeView_addTodo_floatingActionButton'),
-        onPressed: () => print('add'),
-        child: const Icon(Icons.add),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFd0e2f7),
+              Colors.white,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: SafeArea(
+            child: Stack(
+              children: <Widget>[
+                const Image(
+                  width: 32,
+                  height: 32,
+                  image: AssetImage('assets/plus_button.png'),
+                ),
+                IndexedStack(
+                  index: selectedTab.index,
+                  // children: const [TodosOverviewPage(), StatsPage()],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        elevation: 0,
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,12 +62,16 @@ class HomeView extends StatelessWidget {
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.todos,
-              icon: const Icon(Icons.list_rounded),
+              icon: const Image(
+                image: AssetImage('assets/live_icon.png'),
+              ),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.stats,
-              icon: const Icon(Icons.show_chart_rounded),
+              icon: const Image(
+                image: AssetImage('assets/summary_icon.png'),
+              ),
             ),
           ],
         ),
