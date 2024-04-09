@@ -11,8 +11,8 @@ class AlertTile extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height / 6,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.red),
-        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: Colors.red, width: 2),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -33,8 +33,10 @@ class AlertTile extends StatelessWidget {
             children: [
               Text(
                 alert.title,
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               Text(alert.address),
             ],

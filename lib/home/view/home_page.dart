@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:home_link_interview/alert/view/alert_page.dart';
 import 'package:home_link_interview/alert_summary/view/alerts_summary_page.dart';
 import 'package:home_link_interview/home/home.dart';
 
@@ -39,7 +40,7 @@ class HomeView extends StatelessWidget {
           child: SafeArea(
             child: IndexedStack(
               index: selectedTab.index,
-              children: const [AlertsSummaryPage()],
+              children: const [AlertPage(), AlertsSummaryPage()],
             ),
           ),
         ),

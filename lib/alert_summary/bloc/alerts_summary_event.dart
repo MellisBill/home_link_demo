@@ -11,15 +11,15 @@ final class AlertsSummarySubscriptionRequested extends AlertsSummaryEvent {
   const AlertsSummarySubscriptionRequested();
 }
 
-// final class AlertsSummaryTodoCompletionToggled extends AlertsSummaryEvent {
-//   const AlertsSummaryTodoCompletionToggled({
-//     required this.alert,
-//     required this.isCompleted,
-//   });
+final class AlertsSummaryCompletionSubmitted extends AlertsSummaryEvent {
+  const AlertsSummaryCompletionSubmitted({
+    required this.alert,
+    required this.isCompleted,
+  });
 
-//   final String alert;
-//   final bool isCompleted;
+  final String alert;
+  final bool isCompleted;
 
-//   @override
-//   List<Object> get props => [alert, isCompleted];
-// }
+  @override
+  List<Object> get props => [alert, isCompleted];
+}

@@ -56,9 +56,7 @@ class AlertsSummaryView extends StatelessWidget {
           return ListView(
             children: [
               for (final alert in state.alerts)
-                AlertTile(
-                  alert: alert,
-                ),
+                if (!alert.isResolved) AlertTile(alert: alert),
             ],
           );
         },

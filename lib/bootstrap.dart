@@ -3,9 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:home_link_interview/app/app.dart';
 import 'package:home_link_interview/repos/alerts_repository.dart';
-
-import 'app/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
