@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_link_interview/alert/alert.dart';
 import 'package:home_link_interview/alert/bloc/alert_bloc.dart';
-import 'package:home_link_interview/alert/widgets/alert_tile.dart';
 import 'package:home_link_interview/repos/alerts_repository.dart';
 
 class AlertPage extends StatelessWidget {
@@ -13,8 +13,8 @@ class AlertPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => AlertBloc(
         alertsRepository: context.read<AlertsRepository>(),
-      )..add(AlertSubscriptionRequested()),
-      child: AlertView(),
+      )..add(const AlertSubscriptionRequested()),
+      child: const AlertView(),
     );
   }
 }
@@ -24,13 +24,84 @@ class AlertView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Image(
+            height: 30,
+            width: 30,
+            image: AssetImage('assets/plus_button.png'),
+          ),
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image(
+                  height: 35,
+                  width: 35,
+                  image: AssetImage(
+                    'assets/logo.png',
+                  ),
+                ),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Hello Billy'),
+                    Text('See your alerts below'),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Image(
+                  height: 30,
+                  width: 30,
+                  image: AssetImage('assets/settings.png'),
+                ),
+                Image(
+                  height: 30,
+                  width: 30,
+                  image: AssetImage('assets/person_icon.png'),
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 30),
+        AlertTile(),
+      ],
+    );
+  }
+}
+
+class AlertTile extends StatelessWidget {
+  const AlertTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<AlertBloc, AlertState>(
       builder: (context, state) {
-        double height = MediaQuery.of(context).size.height;
-        double width = MediaQuery.of(context).size.width;
+        final height = MediaQuery.of(context).size.height;
+        final width = MediaQuery.of(context).size.width;
+
+        var buttons = [
+          "Everything's OK",
+          "Going to property now",
+          "Call doctor",
+          "I cannot visit",
+        ];
 
         if (state.isResolved) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         } else {
           return GestureDetector(
             onTap: () =>
@@ -40,36 +111,67 @@ class AlertView extends StatelessWidget {
               height: state.isExpanded ? height / 2 : height / 6,
               width: width,
               decoration: BoxDecoration(
+                color: Colors.white70,
                 border: Border.all(
-                    color: state.isResolved ? Colors.green : Colors.red,
-                    width: 2),
-                borderRadius: BorderRadius.circular(24),
+                  color: state.isResolved ? Colors.green : Colors.red,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(18),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   for (final alert in state.alerts)
-                    if (!alert.isResolved) AlertTile(alert: alert),
+                    if (!alert.isResolved)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(alert.timeOfAlert),
+                              const Image(
+                                height: 60,
+                                width: 60,
+                                image: AssetImage(
+                                  'assets/alert_with_resident.png',
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(alert.title,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                              Text('at ${alert.address}'),
+                            ],
+                          ),
+                        ],
+                      ),
                   if (state.isExpanded && !state.isResolving)
                     ...List.generate(
                       4,
                       (i) => Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: OutlinedButton(
                           onPressed: () => context
                               .read<AlertBloc>()
                               .add(AlertButtonPressed(i)),
-                          child: Text('Button ${i + 1}'),
                           style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            side: BorderSide(color: Colors.blue),
+                            side: const BorderSide(color: Colors.blue),
                           ),
+                          child: Text(buttons[i]),
                         ),
                       ),
                     ),
                   if (state.isExpanded && state.isResolving)
-                    Column(
+                    const Column(
                       children: [
                         Text('Thanks for submitting'),
                         Image(

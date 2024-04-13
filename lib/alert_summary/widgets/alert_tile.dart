@@ -40,7 +40,7 @@ class AlertTile extends StatelessWidget {
               ),
               Text(alert.address),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -18,9 +18,9 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     );
     on<AlertButtonPressed>((event, emit) async {
       emit(state.copyWith(
-          lastPressedButtonIndex: event.buttonIndex, isResolving: true));
+          lastPressedButtonIndex: event.buttonIndex, isResolving: true,),);
 
-      await Future.delayed(Duration(seconds: 3), () {
+      await Future.delayed(const Duration(seconds: 3), () {
         emit(state.copyWith(isResolved: true));
       });
     });
