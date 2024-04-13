@@ -25,7 +25,7 @@ final class AlertState extends Equatable {
       bool? isExpanded,
       bool? isResolving,
       bool? isResolved,
-      int? lastPressedButtonIndex}) {
+      int? lastPressedButtonIndex,}) {
     return AlertState(
       status: status != null ? status() : this.status,
       alerts: alerts != null ? alerts() : this.alerts,
