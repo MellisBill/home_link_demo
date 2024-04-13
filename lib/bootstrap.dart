@@ -24,16 +24,18 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-void main() {
+Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   Bloc.observer = const AppBlocObserver();
 
+  // Add cross-flavor configuration here
+
   final alertsRepository = AlertsRepository();
 
-  runZonedGuarded(
+    runZonedGuarded(
     () => runApp(App(alertsRepository: alertsRepository)),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
