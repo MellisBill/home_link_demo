@@ -10,13 +10,13 @@ class AlertsSummaryBloc extends Bloc<AlertsSummaryEvent, AlertsSummaryState> {
     required AlertsRepository alertsRepository,
   })  : _alertsRepository = alertsRepository,
         super(const AlertsSummaryState()) {
-    on<AlertsSummarySubscriptionRequested>(_onSubscriptionRequested);
+    on<AlertsResolvedSummarySubscriptionRequested>(_onSubscriptionRequested);
   }
 
   final AlertsRepository _alertsRepository;
 
   Future<void> _onSubscriptionRequested(
-    AlertsSummarySubscriptionRequested event,
+    AlertsResolvedSummarySubscriptionRequested event,
     Emitter<AlertsSummaryState> emit,
   ) async {
     emit(state.copyWith(status: () => AlertsSummaryStatus.loading));

@@ -7,8 +7,8 @@ sealed class AlertsSummaryEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class AlertsSummarySubscriptionRequested extends AlertsSummaryEvent {
-  const AlertsSummarySubscriptionRequested();
+final class AlertsResolvedSummarySubscriptionRequested extends AlertsSummaryEvent {
+  const AlertsResolvedSummarySubscriptionRequested();
 }
 
 final class AlertsSummaryCompletionSubmitted extends AlertsSummaryEvent {

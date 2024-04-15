@@ -111,7 +111,7 @@ class AlertTile extends StatelessWidget {
               height: state.isExpanded ? height / 2 : height / 6,
               width: width,
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white54,
                 border: Border.all(
                   color: state.isResolved ? Colors.green : Colors.red,
                   width: 2,
