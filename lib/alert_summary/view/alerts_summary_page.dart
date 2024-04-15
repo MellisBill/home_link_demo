@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_link_interview/alert_summary/alert_overview.dart';
 import 'package:home_link_interview/alert_summary/bloc/alerts_summary_bloc.dart';
-import 'package:home_link_interview/alert_summary/widgets/alert_tile.dart';
+import 'package:home_link_interview/alert_summary/widgets/alert_summary_tile.dart';
 import 'package:home_link_interview/repos/alerts_repository.dart';
 
 class AlertsSummaryPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class AlertsSummaryPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => AlertsSummaryBloc(
         alertsRepository: context.read<AlertsRepository>(),
-      )..add(const AlertsSummarySubscriptionRequested()),
+      )..add(const AlertsResolvedSummarySubscriptionRequested()),
       child: const AlertsSummaryView(),
     );
   }
@@ -44,19 +44,34 @@ class AlertsSummaryView extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (state.status != AlertsSummaryStatus.success) {
               return const SizedBox();
-            } else {
-              return Center(
-                child: Text(
-                  'hello',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              );
             }
           }
-          return ListView(
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              for (final alert in state.alerts)
-                if (!alert.isResolved) AlertTile(alert: alert),
+              Text(
+                'Resolved Alerts',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              ),
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: state.alerts.length,
+                itemBuilder: (context, index) {
+                  final alert = state.alerts[index];
+                  return ListTile(
+                    leading: const Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    ),
+                    title: Text(alert.title),
+                    subtitle: Text(
+                      '${alert.address}\nResponded on: ${alert.completedAt}',
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios_outlined),
+                  );
+                },
+              ),
             ],
           );
         },
