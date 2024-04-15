@@ -23,7 +23,9 @@ class AlertsSummaryBloc extends Bloc<AlertsSummaryEvent, AlertsSummaryState> {
     emit(state.copyWith(status: () => AlertsSummaryStatus.loading));
 
     await emit.forEach<List<Alert>>(
-      _alertsRepository.getAlerts(),
+      _alertsRepository.getAlerts().map(
+            (alerts) => alerts.where((element) => element.isResolved).toList(),
+          ),
       onData: (alerts) => state.copyWith(
         status: () => AlertsSummaryStatus.success,
         alerts: () => alerts,

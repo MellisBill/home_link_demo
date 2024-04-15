@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_link_interview/alert_summary/alert_overview.dart';
 import 'package:home_link_interview/alert_summary/bloc/alerts_summary_bloc.dart';
-import 'package:home_link_interview/alert_summary/widgets/alert_summary_tile.dart';
 import 'package:home_link_interview/repos/alerts_repository.dart';
 
 class AlertsSummaryPage extends StatelessWidget {
@@ -49,12 +48,11 @@ class AlertsSummaryView extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Resolved Alerts',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               ListView.builder(
-                scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: state.alerts.length,
                 itemBuilder: (context, index) {

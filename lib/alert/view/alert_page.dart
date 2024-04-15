@@ -102,7 +102,8 @@ class AlertTile extends StatelessWidget {
 
         if (state.isResolved) {
           return const SizedBox.shrink();
-        } else {
+        }
+        for (final alert in state.alerts) {
           return GestureDetector(
             onTap: () =>
                 context.read<AlertBloc>().add(const AlertToggleExpansion()),
@@ -122,38 +123,36 @@ class AlertTile extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      for (final alert in state.alerts)
-                        if (!alert.isResolved)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(alert.timeOfAlert),
-                                  const Image(
-                                    height: 60,
-                                    width: 60,
-                                    image: AssetImage(
-                                      'assets/alert_with_resident.png',
-                                    ),
+                      if (!alert.isResolved)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(alert.timeOfAlert),
+                                const Image(
+                                  height: 60,
+                                  width: 60,
+                                  image: AssetImage(
+                                    'assets/alert_with_resident.png',
                                   ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    alert.title,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                  ),
-                                  Text('at ${alert.address}'),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  alert.title,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                                Text('at ${alert.address}'),
+                              ],
+                            ),
+                          ],
+                        ),
                       if (state.isExpanded && !state.isResolving)
                         ...List.generate(
                           4,
@@ -162,9 +161,13 @@ class AlertTile extends StatelessWidget {
                             child: SizedBox(
                               width: width / 1.2,
                               child: OutlinedButton(
-                                onPressed: () => context
-                                    .read<AlertBloc>()
-                                    .add(AlertButtonPressed(i)),
+                                onPressed: () => context.read<AlertBloc>().add(
+                                      AlertButtonPressed(
+                                        i,
+                                        alert.id,
+                                        DateTime.now(),
+                                      ),
+                                    ),
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -194,6 +197,7 @@ class AlertTile extends StatelessWidget {
             ),
           );
         }
+        return const Text('No current alerts');
       },
     );
   }

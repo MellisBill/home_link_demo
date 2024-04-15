@@ -16,7 +16,9 @@ final class AlertToggleExpansion extends AlertEvent {
 }
 
 final class AlertButtonPressed extends AlertEvent {
-  const AlertButtonPressed(this.buttonIndex);
+  const AlertButtonPressed(this.buttonIndex, this.alertId, this.completedAt);
 
+  final int alertId;
   final int buttonIndex;
+  final DateTime completedAt;
 }
