@@ -118,70 +118,73 @@ class AlertTile extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  for (final alert in state.alerts)
-                    if (!alert.isResolved)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      for (final alert in state.alerts)
+                        if (!alert.isResolved)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(alert.timeOfAlert),
-                              const Image(
-                                height: 60,
-                                width: 60,
-                                image: AssetImage(
-                                  'assets/alert_with_resident.png',
-                                ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(alert.timeOfAlert),
+                                  const Image(
+                                    height: 60,
+                                    width: 60,
+                                    image: AssetImage(
+                                      'assets/alert_with_resident.png',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(alert.title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall),
+                                  Text('at ${alert.address}'),
+                                ],
                               ),
                             ],
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(alert.title,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall),
-                              Text('at ${alert.address}'),
-                            ],
-                          ),
-                        ],
-                      ),
-                  if (state.isExpanded && !state.isResolving)
-                    ...List.generate(
-                      4,
-                      (i) => Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: OutlinedButton(
-                          onPressed: () => context
-                              .read<AlertBloc>()
-                              .add(AlertButtonPressed(i)),
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                      if (state.isExpanded && !state.isResolving)
+                        ...List.generate(
+                          4,
+                          (i) => Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: OutlinedButton(
+                              onPressed: () => context
+                                  .read<AlertBloc>()
+                                  .add(AlertButtonPressed(i)),
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                side: const BorderSide(color: Colors.blue),
+                              ),
+                              child: Text(buttons[i]),
                             ),
-                            side: const BorderSide(color: Colors.blue),
                           ),
-                          child: Text(buttons[i]),
                         ),
-                      ),
-                    ),
-                  if (state.isExpanded && state.isResolving)
-                    const Column(
-                      children: [
-                        Text('Thanks for submitting'),
-                        Image(
-                          height: 100,
-                          width: 100,
-                          image: AssetImage('assets/home_link_tick.gif'),
+                      if (state.isExpanded && state.isResolving)
+                        const Column(
+                          children: [
+                            Text('Thanks for submitting'),
+                            Image(
+                              height: 100,
+                              width: 100,
+                              image: AssetImage('assets/home_link_tick.gif'),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                ],
+                    ],
+                  ),
+                ),
               ),
             ),
           );
