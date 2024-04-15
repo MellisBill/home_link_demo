@@ -113,7 +113,7 @@ class AlertTile extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white54,
                 border: Border.all(
-                  color: state.isResolved ? Colors.green : Colors.red,
+                  color: state.isResolving ? Colors.green : Colors.red,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(18),
@@ -143,10 +143,12 @@ class AlertTile extends StatelessWidget {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(alert.title,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall),
+                                  Text(
+                                    alert.title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                  ),
                                   Text('at ${alert.address}'),
                                 ],
                               ),
@@ -157,17 +159,20 @@ class AlertTile extends StatelessWidget {
                           4,
                           (i) => Padding(
                             padding: const EdgeInsets.all(8),
-                            child: OutlinedButton(
-                              onPressed: () => context
-                                  .read<AlertBloc>()
-                                  .add(AlertButtonPressed(i)),
-                              style: OutlinedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              width: width / 1.2,
+                              child: OutlinedButton(
+                                onPressed: () => context
+                                    .read<AlertBloc>()
+                                    .add(AlertButtonPressed(i)),
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  side: const BorderSide(color: Colors.blue),
                                 ),
-                                side: const BorderSide(color: Colors.blue),
+                                child: Text(buttons[i]),
                               ),
-                              child: Text(buttons[i]),
                             ),
                           ),
                         ),
