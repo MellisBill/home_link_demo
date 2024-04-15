@@ -32,7 +32,7 @@ class AlertTile extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Text("at ${alert.address}"),
+            Text('at ${alert.address}'),
           ],
         ),
       ],

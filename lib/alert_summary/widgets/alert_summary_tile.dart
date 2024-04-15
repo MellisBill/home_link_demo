@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:home_link_interview/models/alert.dart';
-import 'package:home_link_interview/repos/alerts_repository.dart';
 
 class AlertSummaryTile extends StatelessWidget {
   const AlertSummaryTile({required this.alert, super.key});
@@ -15,10 +14,8 @@ class AlertSummaryTile extends StatelessWidget {
         border: Border.all(color: Colors.black12, width: 2),
         borderRadius: BorderRadius.circular(18),
       ),
-      child: Row(
-        children: [
-          
-        ],
+      child: const Row(
+        
       ),
     );
   }
