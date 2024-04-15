@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:home_link_interview/models/alert.dart';
 import 'package:home_link_interview/repos/alerts_repository.dart';
 
 part 'alert_event.dart';
