@@ -93,11 +93,11 @@ class AlertTile extends StatelessWidget {
         final height = MediaQuery.of(context).size.height;
         final width = MediaQuery.of(context).size.width;
 
-        var buttons = [
+        final buttons = [
           "Everything's OK",
-          "Going to property now",
-          "Call doctor",
-          "I cannot visit",
+          'Going to property now',
+          'Call doctor',
+          'I cannot visit',
         ];
 
         if (state.isResolved) {

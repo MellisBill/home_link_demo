@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_link_interview/models/alert.dart';
 import 'package:home_link_interview/repos/alerts_repository.dart';
 
 class AlertSummaryTile extends StatelessWidget {

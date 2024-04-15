@@ -1,23 +1,5 @@
-import 'package:equatable/equatable.dart';
+import 'package:home_link_interview/models/alert.dart';
 
-class Alert extends Equatable {
-  const Alert({
-    required this.title,
-    required this.address,
-    required this.timeOfAlert,
-    required this.completedAt,
-    required this.isResolved,
-  });
-
-  final String title;
-  final String address;
-  final String timeOfAlert;
-  final String? completedAt;
-  final bool isResolved;
-
-  @override
-  List<Object?> get props => [title, address, timeOfAlert];
-}
 
 class AlertsRepository {
   Stream<List<Alert>> getAlerts() {
